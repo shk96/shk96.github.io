@@ -56,7 +56,7 @@ export function About() {
 					>
 						<div className="prose prose-lg max-w-none">
 							<p className="text-gray-600 leading-relaxed mb-6">
-								I currently live in the beautiful city of Vancouver in Canada. I
+								I am currently based in Vancouver, BC, Canada. I
 								was originally born in South Korea before my family and I
 								immigrated to Canada. 
 							</p>
