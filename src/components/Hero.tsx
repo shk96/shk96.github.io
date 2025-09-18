@@ -1,11 +1,24 @@
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { useState } from "react";
 
 export function Hero() {
+	const [showTooltip, setShowTooltip] = useState(false);
+
 	const scrollToAbout = () => {
 		const element = document.querySelector("#about");
 		if (element) {
 			element.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
+	const copyEmailToClipboard = async () => {
+		try {
+			await navigator.clipboard.writeText("kevinkim.sh@gmail.com");
+			setShowTooltip(true);
+			setTimeout(() => setShowTooltip(false), 2000);
+		} catch (error) {
+			console.error("Failed to copy email to clipboard:", error);
 		}
 	};
 
@@ -58,10 +71,22 @@ export function Hero() {
 						transition={{ duration: 0.8, delay: 0.4 }}
 						className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
 					>
-						<button type="button" className="btn-primary">
-							<Mail size={20} />
-							Get In Touch
-						</button>
+						<div className="relative">
+							<button
+								type="button"
+								className="btn-primary"
+								onClick={copyEmailToClipboard}
+							>
+								<Mail size={20} />
+								Get In Touch
+							</button>
+							{showTooltip && (
+								<div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-2 rounded-lg whitespace-nowrap">
+									Email copied to clipboard!
+									<div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+								</div>
+							)}
+						</div>
 					</motion.div>
 
 					{/* Social Links */}
